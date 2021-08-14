@@ -36,3 +36,11 @@ All the Web Servers must implement the WSGI integration which allows us to use a
 </p>
 
 **NOTE:** WSGI support needs to be handled from both the webserver and the weframework.
+
+<p align="center">
+  <img width="700" src="https://github.com/karankumarshreds/CustomWebserver/blob/master/img/img3.PNG"/>
+</p>
+
+Sources:
+
+- https://docs.python.org/3/library/wsgiref.html

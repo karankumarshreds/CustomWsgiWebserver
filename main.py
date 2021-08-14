@@ -50,10 +50,21 @@ class WSGIServer():
       ) = request_line.split()
       # Construct environment dictionary using request data
       env = self.get_environ()
+      # This 'application' is an instance of the web application's app function (wsgi)
+      # This is provided / available in every framework. That instance will be given to
+      # us. Every WSGI application must have an application object - a callable
+      # object that accepts two arguments. 
+      # [1] === The environment dictionary
+      # [2] === A callback method (which the application will take to set some headers)
+      # and will return the flow back to the WSGI server (this class). This callback is 
+      # invoked for each request by the framework
+      # We will then call the method finish response with the result returned from the 
+      # web application.
       result = self.application(env, self.start_response)
       self.finish_response(result)
 
   # Required method by the WSI docs 
+  # [Copied directly from WSGI docs]
   def get_environ(self):
     env = {}
     # Required WSGI variables
@@ -72,9 +83,10 @@ class WSGIServer():
     return env
 
   # Required method by the WSI docs 
-  # The framework/application generates an HTTP status and HTTP response 
-  # headers and passes them to the ‘start_response’ method for the server 
-  # to store them.
+  # The framework/application generates an HTTP status and HTTP response headers based 
+  # on the routes functionality and passes them to the 'start_response' method for the 
+  # WSGI server to store the result [RESPONSE BODY] and pass the flow to the 'finish_response'
+  # method with the response received from the framework
   def start_response(self, status, response_headers, exc_info=None):
     # Add necessary server headers
     server_headers = [
