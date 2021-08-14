@@ -15,4 +15,22 @@ Socket options: https://notes.shichao.io/unp/ch7/#getsockopt-and-setsockopt-func
 Before the client sends the `http` request, it needs to establish the `TCP` connection with the **web server**.
 Once the connection is established, the client sends the HTTP request over the TCP connection and waits for the HTTP response from the webserver.
 
-SOCKETS FROM THE CLIENT SIDE??????
+<p align="center">
+  <img width="700" src="https://github.com/karankumarshreds/CustomWebserver/blob/master/img/img1.PNG"/>
+</p>
+
+The TCP connection is initiated from the client and to establish that, both client and server use `sockets`.
+
+## Integrate any web framework with your web server
+
+Before we move ahead, we need to understand what **WSGI** is.
+
+### WSGI (Web Server Gateway Interface)
+
+The Web Server Gateway Interface is a simple calling convention for web servers to forward requests to web applications or frameworks written in the Python programming language. (coming straight at'ya via wiki)
+
+All the Web Servers must implement the WSGI integration which allows us to use and integrate any python web framework onto the Web Server. Think of it as a protocol.
+
+<p align="center">
+  <img width="700" src="https://github.com/karankumarshreds/CustomWebserver/blob/master/img/img2.PNG"/>
+</p>
