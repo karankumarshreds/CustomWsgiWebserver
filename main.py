@@ -18,3 +18,16 @@ try:
 except socket.error as err:
   print("ERROR: Socket creation error %s" %(err))
 
+while True: 
+  client_socket, client_addr = s.accept()
+  # Setting buffer size for incoming requests == 1024
+  request_data = client_socket.recv(1024)
+  # Print the requests as plain strings 
+  print(request_data.decode("utf-8"))
+  client_socket.sendall(b"""\
+  HTTP/1.1 200 OK
+
+  Hello, World!
+  """)
+  # client_socket.close()
+
