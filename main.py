@@ -29,5 +29,6 @@ while True:
 
   Hello, World!
   """)
-  # client_socket.close()
+  # close the client_connection after we are finished dealing with the client 
+  client_socket.close() 
 

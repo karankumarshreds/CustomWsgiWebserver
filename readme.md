@@ -11,3 +11,8 @@ We make use of `sockets`. Socket programming is a way of connecting two nodes on
 Sockets basics: https://www.geeksforgeeks.org/socket-programming-python
 
 Socket options: https://notes.shichao.io/unp/ch7/#getsockopt-and-setsockopt-functions
+
+Before the client sends the `http` request, it needs to establish the `TCP` connection with the **web server**.
+Once the connection is established, the client sends the HTTP request over the TCP connection and waits for the HTTP response from the webserver.
+
+SOCKETS FROM THE CLIENT SIDE??????
