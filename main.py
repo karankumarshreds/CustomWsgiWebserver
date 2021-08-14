@@ -39,7 +39,7 @@ class WSGIServer():
       # New client connection
       self.client_connection, client_address = self.s.accept()
       self.request_data = self.client_connection.recv(1024)
-      string_data = self.request_data.decode("utf-8")
+      self.request_data = string_data = self.request_data.decode("utf-8")
       request_line = string_data.splitlines()[0]
       request_line = request_line.rstrip('\r\n')
       # Break down the request line into components
@@ -52,28 +52,6 @@ class WSGIServer():
       env = self.get_environ()
       result = self.application(env, self.start_response)
       self.finish_response(result)
-      try: 
-        status, response_headers = self.headers_set
-        response = f'HTTP/1.1 {status}\r\n'
-        for header in response_headers:
-          # adding first and second alphabet of each 
-          # header in a new line 
-          response += '{0}: {1}\r\n'.format(*header)
-        response += '\r\n'
-        for data in result:
-          response += data.decode("utf-8") 
-        # Print formatted response data 
-        print(''.join(
-            f'> {line}\n' for line in response.splitlines()
-        )) 
-        # Encoding the formatted response string to byte 
-        # format to send back to the client 
-        response_bytes = response.encode()
-        self.client_connection.sendall(response_bytes)
-      finally:
-          self.client_connection.close()
-
-
 
   # Required method by the WSI docs 
   def get_environ(self):
@@ -104,6 +82,30 @@ class WSGIServer():
         ('Server', 'WSGIServer 0.2'),
     ]
     self.headers_set = [status, response_headers + server_headers]
+
+  # [result] is must contain headers and status returned from the 
+  # start_response method
+  def finish_response(self, result):
+    try: 
+        status, response_headers = self.headers_set
+        response = f'HTTP/1.1 {status}\r\n'
+        for header in response_headers:
+          # adding first and second alphabet of each 
+          # header in a new line 
+          response += '{0}: {1}\r\n'.format(*header)
+        response += '\r\n'
+        for data in result:
+          response += data.decode("utf-8") 
+        # Print formatted response data 
+        print(''.join(
+            f'> {line}\n' for line in response.splitlines()
+        )) 
+        # Encoding the formatted response string to byte 
+        # format to send back to the client 
+        response_bytes = response.encode()
+        self.client_connection.sendall(response_bytes)
+    finally:
+        self.client_connection.close()
 
 
 SERVER_ADDRESS = (HOST, PORT) = '', 8888
