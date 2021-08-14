@@ -20,8 +20,6 @@ class WSGIServer():
     self.s.listen(self.request_queue_size)
     # Get server host name and port
     host, port = self.s.getsockname()[:2]
-    print("HOST: ", host)
-    print("PORT: ", port)
     # returns the full domain name based on the host name 
     self.server_name = socket.getfqdn(host)
     self.server_port = port
