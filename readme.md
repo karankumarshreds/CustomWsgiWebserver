@@ -34,3 +34,5 @@ All the Web Servers must implement the WSGI integration which allows us to use a
 <p align="center">
   <img width="700" src="https://github.com/karankumarshreds/CustomWebserver/blob/master/img/img2.PNG"/>
 </p>
+
+**NOTE:** WSGI support needs to be handled from both the webserver and the weframework.
